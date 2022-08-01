@@ -1,0 +1,13 @@
+{
+  "server": {
+    "ip": "",
+    "port": 12345,
+    "buffer_size": 1024
+  },
+  "database": {
+    "host": "localhost",
+    "user": "admin",
+    "password": "admin",
+    "database": "SS_DB"
+  }
+}
