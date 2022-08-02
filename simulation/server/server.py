@@ -9,7 +9,7 @@ from utils import DBManager
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(filename="log.log", level=logging.DEBUG,
-                    format= '[%(asctime)s] %(levelname)s - %(message)s', datefmt='%H:%M:%S')
+                    format='[%(asctime)s] %(levelname)s - %(message)s', datefmt='%H:%M:%S')
 
 
 # Load configuration from file
