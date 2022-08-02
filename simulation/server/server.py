@@ -1,18 +1,27 @@
 import mysql.connector
 import socket
 import json
+import logging
+from datetime import datetime
 from pprint import pprint
+
+from utils import DBManager
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(filename="log.log", level=logging.DEBUG,
+                    format= '[%(asctime)s] %(levelname)s - %(message)s', datefmt='%H:%M:%S')
+
 
 # Load configuration from file
 with open('./config.json', 'r') as f:
     config = json.load(f)
 
-mydb = mysql.connector.connect(
+dbmanager = DBManager(
     host=config["database"]["host"],
     user=config["database"]["user"],
-    password=config["database"]["password"]
+    password=config["database"]["password"],
+    database=config["database"]["database"]
 )
-mycursor = mydb.cursor()
 
 
 # Utility functions
@@ -28,22 +37,6 @@ def parse_packet(packet: bytes):
     return parsed_packet
 
 
-def get_device_id(dev_name: str):
-    sql = "SELECT idDevice FROM SS_DB.device WHERE name = %s"
-    var = (dev_name,)
-    mycursor.execute(sql, var)
-    result = mycursor.fetchone()
-    return result[0]
-
-
-def insert_processed_work(timestamp: int, duration: int, defective: int, success: int, id_device: int):
-    sql = "INSERT INTO SS_DB.processedWork (timestamp, duration, defective, success, idDevice) " \
-          "VALUES (%d, %d, %d, %d, %d)"
-    var = (timestamp, duration, defective, success, id_device,)
-    mycursor.execute(sql, var)
-    mydb.commit()
-
-
 if __name__ == "__main__":
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         print("Ready to listen...")
@@ -55,13 +48,22 @@ if __name__ == "__main__":
             while True:
                 data = conn.recv(config["server"]["buffer_size"])
                 if data:
+                    # parse data
                     parsed_data = parse_packet(data)
-                    dev_id = get_device_id(parsed_data["devName"])
-                    insert_processed_work(
-                        int(data["timestamp"]),
-                        int(data["duration"]),
-                        int(data["defective"]),
-                        int(data["success"]),
-                        dev_id)
+                    dev_id = dbmanager.get_device_id(parsed_data["devName"])
+
+                    # log
+                    logger.debug(f"Received message: {parsed_data}")
                     print(parsed_data)
+
+                    # get current timestamp
+                    timestamp_format = '%Y-%m-%d %H:%M:%S'
+                    timestamp = datetime.now().strftime(timestamp_format)
+                    # write to db
+                    dbmanager.insert_processed_work(
+                        timestamp,
+                        (parsed_data["duration"]),
+                        (parsed_data["defective"]),
+                        (parsed_data["success"]),
+                        str(dev_id))
 
