@@ -49,12 +49,12 @@ function defineDBStructure() {
         autoIncrement: true,
         primaryKey: true,
       },
-      duration: DataTypes.BOOLEAN,
-      failurerate: DataTypes.BOOLEAN,
-      reliability: DataTypes.BOOLEAN,
-      workingdevices: DataTypes.BOOLEAN,
-      production: DataTypes.BOOLEAN,
-      defects: DataTypes.BOOLEAN,
+      current: DataTypes.BOOLEAN,
+      voltage: DataTypes.BOOLEAN,
+      activepower: DataTypes.BOOLEAN,
+      reactivepower: DataTypes.BOOLEAN,
+      apparentpower: DataTypes.BOOLEAN,
+      samples: DataTypes.BOOLEAN,
     },
     {
       createdAt: false,
@@ -71,11 +71,11 @@ function defineDBStructure() {
         primaryKey: true,
       },
       timestamp: DataTypes.TIME,
-      current: DataTypes.FLOAT,
-      voltage: DataTypes.FLOAT,
-      activepower: DataTypes.FLOAT,
-      reactivepower: DataTypes.FLOAT,
-      apparentpower: DataTypes.FLOAT,
+      current: DataTypes.DOUBLE,
+      voltage: DataTypes.DOUBLE,
+      activepower: DataTypes.DOUBLE,
+      reactivepower: DataTypes.DOUBLE,
+      apparentpower: DataTypes.DOUBLE,
       idDevice: DataTypes.INTEGER,
     },
     {
@@ -127,6 +127,20 @@ async function insertRealData() {
     username: 'Siemens_Munich',
     password: 'Siemens',
   })
+  /*
+  const EnergyConsumption1 = await EnergyConsumption.create({
+    current: 122,
+    voltage: 21,
+    activepower: 222,
+    reactivepower: 42,
+    apparentpower: 342,
+    idDevice: 1,
+  })
+  const Device1 = await Device.create({
+    name: 'Device 1',
+    description: 'Description device 1',
+  })
+  */
 }
 
 /**

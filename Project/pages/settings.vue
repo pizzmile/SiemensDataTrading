@@ -6,23 +6,23 @@
         Select the data you want to share over the platform
       </div>
       <form action="/api/createpolicy" method="post">
-        <input id="duration" type="checkbox" />
-        <label for="duration"> Duration</label><br /><br />
+        <input id="current" name="current" type="checkbox" />
+        <label for="current"> Current</label><br /><br />
 
-        <input id="failurerate" type="checkbox" />
-        <label for="failurerate"> Failure Rate</label><br /><br />
+        <input id="voltage" name="voltage" type="checkbox" />
+        <label for="voltage"> Voltage</label><br /><br />
 
-        <input id="reliability" type="checkbox" />
-        <label for="reliability"> Reliability </label><br /><br />
+        <input id="activepower" name="activepower" type="checkbox" />
+        <label for="activepower"> Active Power </label><br /><br />
 
-        <input id="workingdevices" type="checkbox" />
-        <label for="workingdevices"> Working Devices </label><br /><br />
+        <input id="reactivepower" name="reactivepower" type="checkbox" />
+        <label for="reactivepower"> Reactive Power </label><br /><br />
 
-        <input id="production" type="checkbox" />
-        <label for="production"> Production</label><br /><br />
+        <input id="apparentpower" name="apparentpower" type="checkbox" />
+        <label for="apparentpower"> Apparent Power</label><br /><br />
 
-        <input id="defects" type="checkbox" />
-        <label for="defects"> Defects </label><br /><br />
+        <input id="samples" name="samples" type="checkbox" />
+        <label for="samples"> Samples </label><br /><br />
 
         <input id="submit" type="submit" value="submit" />
       </form>

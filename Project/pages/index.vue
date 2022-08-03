@@ -7,42 +7,81 @@
           <img
             src="https://www.freeiconspng.com/thumbs/dashboard-icon/dashboard-icon-3.png"
           />
-          <p class="dashboard-value">{{ avgCurrent }} ms</p>
+          <div
+            class="dashboard-value"
+            :class="{ shared: policies.current, unshared: !policies.current }"
+          >
+            {{ avgCurrent }} A
+          </div>
         </div>
         <div class="dashboard-item">
           <p class="dashboard-title">Voltage</p>
           <img
             src="https://www.freeiconspng.com/thumbs/dashboard-icon/dashboard-icon-3.png"
           />
-          <p class="dashboard-value">{{ avgVoltage }}</p>
+          <p
+            class="dashboard-value"
+            :class="{ shared: policies.voltage, unshared: !policies.voltage }"
+          >
+            {{ avgVoltage }} V
+          </p>
         </div>
         <div class="dashboard-item">
           <p class="dashboard-title">Active Power</p>
           <img
             src="https://www.freeiconspng.com/thumbs/dashboard-icon/dashboard-icon-3.png"
           />
-          <p class="dashboard-value">{{ avgAP }}</p>
+          <p
+            class="dashboard-value"
+            :class="{
+              shared: policies.activepower,
+              unshared: !policies.activepower,
+            }"
+          >
+            {{ avgAP }} W
+          </p>
         </div>
         <div class="dashboard-item">
           <p class="dashboard-title">Reactive Power</p>
           <img
             src="https://www.freeiconspng.com/thumbs/dashboard-icon/dashboard-icon-3.png"
           />
-          <p class="dashboard-value">{{ avgRP }}</p>
+          <p
+            class="dashboard-value"
+            :class="{
+              shared: policies.reactivepower,
+              unshared: !policies.reactivepower,
+            }"
+          >
+            {{ avgRP }} W
+          </p>
         </div>
         <div class="dashboard-item">
           <p class="dashboard-title">Apparent Power</p>
           <img
             src="https://www.freeiconspng.com/thumbs/dashboard-icon/dashboard-icon-3.png"
           />
-          <p class="dashboard-value">{{ avgAPP }}</p>
+          <p
+            class="dashboard-value"
+            :class="{
+              shared: policies.apparentpower,
+              unshared: !policies.apparentpower,
+            }"
+          >
+            {{ avgAPP }} W
+          </p>
         </div>
         <div class="dashboard-item">
           <p class="dashboard-title">Samples</p>
           <img
             src="https://www.freeiconspng.com/thumbs/dashboard-icon/dashboard-icon-3.png"
           />
-          <p class="dashboard-value">{{ energyconsumptions.length }}</p>
+          <p
+            class="dashboard-value"
+            :class="{ shared: policies.samples, unshared: !policies.samples }"
+          >
+            {{ energyconsumptions.length }}
+          </p>
         </div>
       </div>
     </div>
@@ -62,6 +101,9 @@ export default {
     )
     energyconsumptions = energyconsumptions.data
 
+    let policies = await $axios.get(`${process.env.BASE_URL}/api/policies`)
+    policies = policies.data[0]
+
     let avgCurrent = 0
     let avgVoltage = 0
     let avgAP = 0
@@ -69,7 +111,7 @@ export default {
     let avgAPP = 0
 
     for (
-      let i = energyconsumptions.length;
+      let i = energyconsumptions.length - 1;
       i > energyconsumptions.length - 10 && i >= 0;
       i--
     ) {
@@ -103,6 +145,7 @@ export default {
       avgAP,
       avgRP,
       avgAPP,
+      policies,
     }
   },
   data() {
@@ -264,6 +307,7 @@ export default {
   width: 100%;
   padding-bottom: 15px;
 }
+
 .dashboard-value {
   background: #f9f9ff;
   border: 2px solid var(--cc-base2);
@@ -276,7 +320,39 @@ export default {
   text-transform: uppercase;
   margin: auto;
   padding: 10px;
-  color: var(--cc-base2);
+  color: #4d41c9;
+  width: 80%;
+}
+
+.dashboard-value.shared {
+  background: #f9f9ff;
+  border: 2px solid yellowgreen;
+  border-radius: 35px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  text-transform: uppercase;
+  margin: auto;
+  padding: 10px;
+  color: #4d41c9;
+  width: 80%;
+}
+
+.dashboard-value.unshared {
+  background: #f9f9ff;
+  border: 2px solid red;
+  border-radius: 35px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  text-transform: uppercase;
+  margin: auto;
+  padding: 10px;
+  color: #4d41c9;
   width: 80%;
 }
 

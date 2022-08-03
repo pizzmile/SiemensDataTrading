@@ -3,9 +3,8 @@ import { Op, where } from 'sequelize'
 import initializeDatabase from '../db-conn'
 const app = express()
 
-// We need this one if we send data inside the body as JSON
-app.use(express.json())
-
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: true }))
 async function init() {
   // Call the init function that returns the Database
   const db = await initializeDatabase()
@@ -45,13 +44,40 @@ async function init() {
     return res.json(policies)
   })
   app.post('/createpolicy', async (req, res) => {
+    let currentValue = false
+    let voltageValue = false
+    let apValue = false
+    let rpValue = false
+    let appValue = false
+    let samplesValue = false
+
+    if (req.body.current) {
+      currentValue = true
+    }
+    if (req.body.voltage) {
+      voltageValue = true
+    }
+    if (req.body.activepower) {
+      apValue = true
+    }
+    if (req.body.reactivepower) {
+      rpValue = true
+    }
+    if (req.body.apparentpower) {
+      appValue = true
+    }
+    if (req.body.samples) {
+      samplesValue = true
+    }
+
+    Policies.truncate()
     await Policies.create({
-      duration: false,
-      failurerate: false,
-      reliability: false,
-      workingdevices: false,
-      production: false,
-      defects: false,
+      current: currentValue,
+      voltage: voltageValue,
+      activepower: apValue,
+      reactivepower: rpValue,
+      apparentpower: appValue,
+      samples: samplesValue,
     })
   })
 }
