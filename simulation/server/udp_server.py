@@ -53,7 +53,7 @@ if __name__ == '__main__':
 
             # log
             logger.debug(f"Received message: {parsed_data}")
-            print(parsed_data)
+            #print(parsed_data)
 
             # get current timestamp
             timestamp_format = '%Y-%m-%d %H:%M:%S'
