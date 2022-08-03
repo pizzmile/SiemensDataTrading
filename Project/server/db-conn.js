@@ -115,7 +115,7 @@ function defineDBStructure() {
   }
 }
 async function insertRealData() {
-  const { Device, EnergyConsumption, User, Area } = db._tables
+  const { Device, EnergyConsumption, User, Area, Policies } = db._tables
 
   //* *INSERT Users */
   const BMW = await User.create({
@@ -127,15 +127,16 @@ async function insertRealData() {
     username: 'Siemens_Munich',
     password: 'Siemens',
   })
-  /*
-  const EnergyConsumption1 = await EnergyConsumption.create({
-    current: 122,
-    voltage: 21,
-    activepower: 222,
-    reactivepower: 42,
-    apparentpower: 342,
-    idDevice: 1,
+  
+  const defaultPolicy = await Policies.create({
+    current: false,
+    voltage: false,
+    activepower: false,
+    reactivepower: false,
+    apparentpower: false,
+    samples: false,
   })
+  /*
   const Device1 = await Device.create({
     name: 'Device 1',
     description: 'Description device 1',

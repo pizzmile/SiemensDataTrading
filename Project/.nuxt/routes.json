@@ -3,17 +3,20 @@
     "name": "settings",
     "path": "/settings",
     "component": "/Users/marcoacquati/Library/Mobile Documents/com~apple~CloudDocs/PoliMi/Magistrale/Summer School/SiemensDataTrading/Project/pages/settings.vue",
-    "chunkName": "pages/settings"
+    "chunkName": "pages/settings",
+    "_name": "_8e1194f6"
   },
   {
     "name": "index",
     "path": "/",
     "component": "/Users/marcoacquati/Library/Mobile Documents/com~apple~CloudDocs/PoliMi/Magistrale/Summer School/SiemensDataTrading/Project/pages/index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_2ccf8660"
   },
   {
     "name": "home",
     "path": "/home",
-    "component": "/Users/marcoacquati/Library/Mobile Documents/com~apple~CloudDocs/PoliMi/Magistrale/Summer School/SiemensDataTrading/Project/pages/index.vue"
+    "component": "/Users/marcoacquati/Library/Mobile Documents/com~apple~CloudDocs/PoliMi/Magistrale/Summer School/SiemensDataTrading/Project/pages/index.vue",
+    "_name": "_2ccf8660"
   }
 ]

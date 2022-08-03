@@ -90,6 +90,7 @@
 
 <script>
 import GoToMixins from '~/mixins/goTo-mixins.js'
+
 export default {
   components: {},
   mixins: [GoToMixins],

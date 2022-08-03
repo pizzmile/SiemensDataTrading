@@ -6,22 +6,52 @@
         Select the data you want to share over the platform
       </div>
       <form action="/api/createpolicy" method="post">
-        <input id="current" name="current" type="checkbox" />
+        <input
+          id="current"
+          name="current"
+          type="checkbox"
+          :checked="policies.current == true"
+        />
         <label for="current"> Current</label><br /><br />
 
-        <input id="voltage" name="voltage" type="checkbox" />
+        <input
+          id="voltage"
+          name="voltage"
+          type="checkbox"
+          :checked="policies.voltage == true"
+        />
         <label for="voltage"> Voltage</label><br /><br />
 
-        <input id="activepower" name="activepower" type="checkbox" />
+        <input
+          id="activepower"
+          name="activepower"
+          type="checkbox"
+          :checked="policies.activepower == true"
+        />
         <label for="activepower"> Active Power </label><br /><br />
 
-        <input id="reactivepower" name="reactivepower" type="checkbox" />
+        <input
+          id="reactivepower"
+          name="reactivepower"
+          type="checkbox"
+          :checked="policies.reactivepower == true"
+        />
         <label for="reactivepower"> Reactive Power </label><br /><br />
 
-        <input id="apparentpower" name="apparentpower" type="checkbox" />
+        <input
+          id="apparentpower"
+          name="apparentpower"
+          type="checkbox"
+          :checked="policies.apparentpower == true"
+        />
         <label for="apparentpower"> Apparent Power</label><br /><br />
 
-        <input id="samples" name="samples" type="checkbox" />
+        <input
+          id="samples"
+          name="samples"
+          type="checkbox"
+          :checked="policies.samples == true"
+        />
         <label for="samples"> Samples </label><br /><br />
 
         <input id="submit" type="submit" value="submit" />
@@ -55,6 +85,13 @@ export default {
   components: {},
 
   mixins: [GoToMixins],
+
+  async asyncData({ $axios }) {
+    let policies = await $axios.get(`${process.env.BASE_URL}/api/policies`)
+    policies = policies.data[0]
+    console.log('DATI POLICIES' + policies.current)
+    return { policies }
+  },
 
   data() {
     return {
