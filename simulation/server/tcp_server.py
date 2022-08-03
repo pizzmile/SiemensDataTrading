@@ -1,4 +1,3 @@
-import mysql.connector
 import socket
 import json
 import logging
@@ -64,7 +63,6 @@ def parse_packet(packet: bytes):
     packet_str = packet.decode("utf-8")
     packet_fields_raw = packet_str.split("&")
     for field in packet_fields_raw:
-        print(field)
         packet_field = field.split(":")
         parsed_packet[packet_field[0]] = packet_field[1]
 
