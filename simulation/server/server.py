@@ -62,8 +62,11 @@ if __name__ == "__main__":
                     # write to db
                     dbmanager.insert_processed_work(
                         timestamp,
-                        (parsed_data["duration"]),
-                        (parsed_data["defective"]),
-                        (parsed_data["success"]),
-                        str(dev_id))
+                        str(dev_id),
+                        parsed_data["current"],
+                        parsed_data["voltage"],
+                        parsed_data["activePower"],
+                        parsed_data["reactivePower"],
+                        parsed_data["apparentPower"]
+                    )
 

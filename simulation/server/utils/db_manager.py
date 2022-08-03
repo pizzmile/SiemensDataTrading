@@ -25,10 +25,9 @@ class DBManager:
         result = self.__cursor.fetchone()
         return result[0]
 
-    def insert_processed_work(self, timestamp: str, duration: str, defective: str, success: str, id_device: str):
-        sql = "INSERT INTO SS_DB.works (timestamp, duration, defective, success, idDevice) " \
-              "VALUES (%s, %s, %s, %s, %s)"
-        var = (timestamp, duration, defective, success, id_device,)
+    def insert_processed_work(self, timestamp: str, idDevice: str, current: str, voltage: str, activePower: str, reactivePower: str, apparentPower: str):
+        sql = "INSERT INTO SS_DB.energyConsumptions (timestamp, idDevice, current, voltage, activePower, reactivePower, apparentPower)"
+        var = (timestamp, idDevice, current, voltage, activePower, reactivePower, apparentPower,)
         self.__cursor.execute(sql, var)
         self.__db.commit()
 
