@@ -2,8 +2,8 @@ import mysql.connector
 import socket
 import json
 import logging
+from _thread import *
 from datetime import datetime
-from pprint import pprint
 
 from utils import DBManager
 
@@ -24,6 +24,39 @@ dbmanager = DBManager(
 )
 
 
+def client_handler(connection):
+    while connection:
+        data = connection.recv(config["server"]["buffer_size"])
+        if data:
+            # parse data
+            parsed_data = parse_packet(data)
+            dev_id = dbmanager.get_device_id(parsed_data["devName"])
+
+            # log
+            logger.debug(f"Received message: {parsed_data}")
+            print(parsed_data)
+
+            # get current timestamp
+            timestamp_format = '%Y-%m-%d %H:%M:%S'
+            timestamp = datetime.now().strftime(timestamp_format)
+            # write to db
+            dbmanager.insert_processed_work(
+                timestamp,
+                str(dev_id),
+                parsed_data["current"],
+                parsed_data["voltage"],
+                parsed_data["activePower"],
+                parsed_data["reactivePower"],
+                parsed_data["apparentPower"]
+            )
+    connection.close()
+
+
+def accept_connection(server_socket):
+    client, address = server_socket.accept()
+    start_new_thread(client_handler, (client, ))
+
+
 # Utility functions
 def parse_packet(packet: bytes):
     parsed_packet = {}
@@ -42,31 +75,6 @@ if __name__ == "__main__":
         print("Ready to listen...")
         s.bind((config["server"]["ip"], config["server"]["port"]))
         s.listen()
-        conn, addr = s.accept()
-        with conn:
-            print(f"Connected by {addr}")
-            while True:
-                data = conn.recv(config["server"]["buffer_size"])
-                if data:
-                    # parse data
-                    parsed_data = parse_packet(data)
-                    dev_id = dbmanager.get_device_id(parsed_data["devName"])
 
-                    # log
-                    logger.debug(f"Received message: {parsed_data}")
-                    print(parsed_data)
-
-                    # get current timestamp
-                    timestamp_format = '%Y-%m-%d %H:%M:%S'
-                    timestamp = datetime.now().strftime(timestamp_format)
-                    # write to db
-                    dbmanager.insert_processed_work(
-                        timestamp,
-                        str(dev_id),
-                        parsed_data["current"],
-                        parsed_data["voltage"],
-                        parsed_data["activePower"],
-                        parsed_data["reactivePower"],
-                        parsed_data["apparentPower"]
-                    )
-
+        while True:
+            accept_connection(s)
