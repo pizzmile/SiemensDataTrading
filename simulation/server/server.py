@@ -48,7 +48,6 @@ if __name__ == "__main__":
             while True:
                 data = conn.recv(config["server"]["buffer_size"])
                 if data:
-                    '''
                     # parse data
                     parsed_data = parse_packet(data)
                     dev_id = dbmanager.get_device_id(parsed_data["devName"])
@@ -70,7 +69,4 @@ if __name__ == "__main__":
                         parsed_data["reactivePower"],
                         parsed_data["apparentPower"]
                     )
-                    '''
-                    print(data)
-                    print()
 
