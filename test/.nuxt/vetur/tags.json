@@ -1,0 +1,20 @@
+{
+  "TheFooter": {
+    "description": "Auto imported from components/TheFooter.vue"
+  },
+  "TheHeader": {
+    "description": "Auto imported from components/TheHeader.vue"
+  },
+  "UtilsDiscoverButton": {
+    "description": "Auto imported from components/utils/DiscoverButton.vue"
+  },
+  "UtilsDoubleColorTitle": {
+    "description": "Auto imported from components/utils/DoubleColorTitle.vue"
+  },
+  "UtilsGoUp": {
+    "description": "Auto imported from components/utils/GoUp.vue"
+  },
+  "UtilsSpaceDivider": {
+    "description": "Auto imported from components/utils/SpaceDivider.vue"
+  }
+}
