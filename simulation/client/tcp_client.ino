@@ -1,6 +1,8 @@
 #include <ESP8266WiFi.h>
 
-#define DEVNAME "DEV2"
+// #define DEVNAME "MILLING"
+// #define DEVNAME "PELLETING"
+#define DEVNAME "MVLV"
 
 
 const char* SSID = "OpenWrt";
@@ -61,21 +63,38 @@ void setup() {
 }
 
 void loop() {
-    int duration = 1000;
+    int duration = 60 * 1000;
     // If client is connected send data
     while (client.connected()) {
-      duration = random(1,5)*1000;
-      int timestamp = millis();
-      bool success = work(duration);
-      bool defective = false;
-      if (success) {
-        defective = random(0,2);
-      }
+      /*
+      // Milling
+      double activePower = random(-873923, 1405200) / 100;
+      double reactivePower = random(-939362, 24413100) / 100;
+      double apparentPower = random(0, 2529700) / 100;
+      double current = random(6674, 151430) / 100;
+      double voltage = random(16149, 23615) / 100;
+      // Pelletizer
+      float activePower = random(-2539150, 29593700) / 100;
+      float reactivePower = random(-6185630, 4163200) / 100;
+      float apparentPower = random(3658, 43539000) / 100;
+      float current = random(4343, 258723) / 100;
+      float voltage = random(2562, 24198) / 100;
+      */
       
-      String string = "timestamp:" + (String)timestamp + "&devName:" + (String)DEVNAME +"&success:" + (String)success + "&defective:" + (String)defective + "&duration:" + (String)duration;
+      // MVLV
+      float activePower = random(-17227600, 95268800) / 100;
+      float reactivePower = random(-46979700, 101334000) / 100;
+      float apparentPower = random(20058, 110231000) / 100;
+      float current = random(29585, 16951) / 100;
+      float voltage = random(55098, 774857) / 100;
+      
+      
+      
+      String string = "devName:" + (String)DEVNAME + "&current:" + current + "&voltage:" + voltage + "&activePower:" + activePower + "&reactivePower:" + reactivePower + "&apparentPower:" + apparentPower;
       char char_array[string.length() + 1];
       string.toCharArray(char_array, string.length() + 1);
       client.write(char_array);
+      delay(duration);
     }
 
     delay(500);
