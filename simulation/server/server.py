@@ -48,9 +48,10 @@ if __name__ == "__main__":
             while True:
                 data = conn.recv(config["server"]["buffer_size"])
                 if data:
+                    '''
                     # parse data
                     parsed_data = parse_packet(data)
-                    '''dev_id = dbmanager.get_device_id(parsed_data["devName"])'''
+                    dev_id = dbmanager.get_device_id(parsed_data["devName"])
 
                     # log
                     logger.debug(f"Received message: {parsed_data}")
@@ -60,7 +61,7 @@ if __name__ == "__main__":
                     timestamp_format = '%Y-%m-%d %H:%M:%S'
                     timestamp = datetime.now().strftime(timestamp_format)
                     # write to db
-                    '''dbmanager.insert_processed_work(
+                    dbmanager.insert_processed_work(
                         timestamp,
                         str(dev_id),
                         parsed_data["current"],
@@ -68,5 +69,7 @@ if __name__ == "__main__":
                         parsed_data["activePower"],
                         parsed_data["reactivePower"],
                         parsed_data["apparentPower"]
-                    )'''
+                    )
+                    '''
+                    print(data)
 
