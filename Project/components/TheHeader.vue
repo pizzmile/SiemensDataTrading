@@ -675,6 +675,10 @@ div #icon {
   display: none;
 }
 @media screen and (max-width: 1200px) {
+  .headerimg {
+    width: 50%;
+  }
+
   .logo-style {
     width: 21px;
     height: 21px;
