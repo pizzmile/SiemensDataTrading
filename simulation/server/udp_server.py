@@ -1,8 +1,6 @@
-import mysql.connector
 import socket
 import json
 import logging
-from _thread import *
 from datetime import datetime
 
 from utils import DBManager
@@ -51,20 +49,20 @@ if __name__ == '__main__':
             parsed_data = parse_packet(message)
             dev_id = dbmanager.get_device_id(parsed_data["devName"])
 
-            # log
-            logger.debug(f"Received message: {parsed_data}")
-            #print(parsed_data)
+            if dbmanager.get_device_status(dev_id):
+                # log
+                logger.debug(f"Received message: {parsed_data}")
 
-            # get current timestamp
-            timestamp_format = '%Y-%m-%d %H:%M:%S'
-            timestamp = datetime.now().strftime(timestamp_format)
-            # write to db
-            dbmanager.insert_processed_work(
-                timestamp,
-                str(dev_id),
-                parsed_data["current"],
-                parsed_data["voltage"],
-                parsed_data["activePower"],
-                parsed_data["reactivePower"],
-                parsed_data["apparentPower"]
-            )
+                # get current timestamp
+                timestamp_format = '%Y-%m-%d %H:%M:%S'
+                timestamp = datetime.now().strftime(timestamp_format)
+                # write to db
+                dbmanager.insert_processed_work(
+                    timestamp,
+                    str(dev_id),
+                    parsed_data["current"],
+                    parsed_data["voltage"],
+                    parsed_data["activePower"],
+                    parsed_data["reactivePower"],
+                    parsed_data["apparentPower"]
+                )
