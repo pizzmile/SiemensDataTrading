@@ -80,6 +80,32 @@ async function init() {
       samples: samplesValue,
     })
   })
+
+  app.post('/updatedeviceactivity', async (req, res) => {
+    let devices = await Device.findAll({})
+    devices = devices.length
+
+    for (let i = 0; i < devices; i++) {
+      await Device.update(
+        {
+          active: 'false',
+        },
+        {
+          where: { active: 1 },
+        }
+      )
+    }
+    for (let i = 0; i < Object.keys(req.body).length; i++) {
+      await Device.update(
+        {
+          active: 'true',
+        },
+        {
+          where: { name: Object.keys(req.body)[i] },
+        }
+      )
+    }
+  })
 }
 
 init()

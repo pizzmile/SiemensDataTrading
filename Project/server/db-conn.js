@@ -34,6 +34,7 @@ function defineDBStructure() {
       },
       name: DataTypes.STRING,
       description: DataTypes.STRING,
+      active: DataTypes.BOOLEAN,
     },
     {
       createdAt: false,

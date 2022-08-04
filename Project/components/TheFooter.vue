@@ -1,7 +1,9 @@
 <template>
   <footer class="footer" id="footer-element">
     <div class="footer-left-column">
-      <span class="show-desktop"> </span>
+      <span class="show-desktop">
+        <img src="~/assets/logo-txt.png" class="footerimg" />
+      </span>
       <span class="show-tablet">
         <svg
           width="203"
@@ -940,9 +942,8 @@
             >231 Gotham Square - 89<br />
             GM Metropolis city</a
           >
-          <br />
           <br />Phone : <a href="tel:+00 123 456 78">+00 123 456 78</a> <br />
-          Mail : <a href="mailto:info@hextech.com">info@shareandgain.com</a>
+          Mail : <a href="mailto:info@hextech.com">info@dalink.com</a>
         </div>
       </div>
     </div>
@@ -976,6 +977,11 @@ export default {
 </script>
 
 <style scoped>
+.footerimg {
+  padding: 100px;
+  width: 50%;
+}
+
 .footer {
   height: 290px;
   background: var(--cc-base5);

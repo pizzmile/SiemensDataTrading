@@ -54,25 +54,33 @@
         />
         <label for="samples"> Samples </label><br /><br />
 
-        <input id="submit" type="submit" value="submit" />
+        <input id="submit" type="submit" value="confirm" />
       </form>
     </div>
     <div class="system-settings">
-      <div class="pre_title">System options</div>
-      <div class="description">
-        Manage the functionalities of yout IoT devices
-      </div>
-      <form>
-        <input id="checkbox1" type="checkbox" />
-        <label for="checkbox1"> Option 1</label><br /><br />
-        <input id="checkbox2" type="checkbox" />
-        <label for="checkbox2"> Option 2</label><br /><br />
-        <input id="checkbox3" type="checkbox" />
-        <label for="checkbox3"> Option 3</label><br /><br />
-        <input id="checkbox4" type="checkbox" />
-        <label for="checkbox4"> Option 4</label><br /><br />
-        <input id="checkbox5" type="checkbox" />
-        <label for="checkbox5•"> Option 5</label><br /><br />
+      <div class="pre_title">Device management</div>
+      <div class="description">Select the devices you want to be active</div>
+      <form action="api/updatedeviceactivity" method="post">
+        <div
+          v-for="(device, deviceIndex) of devices"
+          :key="'device-' + deviceIndex"
+        >
+          <input
+            :id="'device-' + device.idDevice"
+            :name="device.name"
+            type="checkbox"
+            :checked="device.active == true"
+          />
+          <label
+            :id="'device-' + device.idDevice"
+            :key="'device-' + deviceIndex"
+            for="'device-' + deviceIndex"
+          >
+            {{ device.name }}, {{ device.description }}</label
+          >
+          <br /><br />
+        </div>
+        <input id="submit" type="submit" value="confirm" />
       </form>
     </div>
   </main>
@@ -89,8 +97,9 @@ export default {
   async asyncData({ $axios }) {
     let policies = await $axios.get(`${process.env.BASE_URL}/api/policies`)
     policies = policies.data[0]
-    console.log('DATI POLICIES' + policies.current)
-    return { policies }
+    let devices = await $axios.get(`${process.env.BASE_URL}/api/devices`)
+    devices = devices.data
+    return { policies, devices }
   },
 
   data() {

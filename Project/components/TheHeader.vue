@@ -3,9 +3,7 @@
     <nav>
       <a href="">
         <div class="title-header logo">
-          Share
-          <span class="title-red">&</span>
-          Gain
+          <img src="~/assets/logo-txt@0.5x.png" class="headerimg" />
         </div>
       </a>
       <ul id="menu-list">
@@ -518,6 +516,9 @@ export default {
 }
 </script>
 <style scoped>
+.headerimg {
+  width: 70%;
+}
 .header-container {
   position: sticky;
   position: -webkit-sticky;
