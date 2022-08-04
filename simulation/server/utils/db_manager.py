@@ -32,3 +32,10 @@ class DBManager:
         self.__db.commit()
 
         logger.debug(f"Written data to DB: {var}")
+
+    def get_device_status(self, dev_id: int):
+        sql = "SELECT active FROM SS_DB.devices WHERE name = %s"
+        var = (str(dev_id),)
+        self.__cursor.execute(sql, var)
+        result = self.__cursor.fetchone()
+        return result[0]
