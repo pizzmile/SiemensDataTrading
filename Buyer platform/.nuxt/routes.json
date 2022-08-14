@@ -1,0 +1,29 @@
+[
+  {
+    "name": "purchase",
+    "path": "/purchase",
+    "component": "/Users/marcoacquati/Library/Mobile Documents/com~apple~CloudDocs/PoliMi/Magistrale/Summer School/SiemensDataTrading/Buyer platform/pages/purchase.vue",
+    "chunkName": "pages/purchase",
+    "_name": "_7d17906a"
+  },
+  {
+    "name": "settings",
+    "path": "/settings",
+    "component": "/Users/marcoacquati/Library/Mobile Documents/com~apple~CloudDocs/PoliMi/Magistrale/Summer School/SiemensDataTrading/Buyer platform/pages/settings.vue",
+    "chunkName": "pages/settings",
+    "_name": "_0adce68c"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/Users/marcoacquati/Library/Mobile Documents/com~apple~CloudDocs/PoliMi/Magistrale/Summer School/SiemensDataTrading/Buyer platform/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_0a7bcab9"
+  },
+  {
+    "name": "home",
+    "path": "/home",
+    "component": "/Users/marcoacquati/Library/Mobile Documents/com~apple~CloudDocs/PoliMi/Magistrale/Summer School/SiemensDataTrading/Buyer platform/pages/index.vue",
+    "_name": "_0a7bcab9"
+  }
+]
